@@ -14,21 +14,17 @@
             <thead class="thead-default">
                 <tr>
                     <th>Nome</th>
+                    <th>Descricao</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Jogo 2D</td>
-                </tr>
-                <tr>
-                    <td>Mercado Escolar</td>
-                </tr>
-                <tr>
-                    <td>Vida e Amor</td>
-                </tr>
-                <tr>
-                    <td>Meu Projeto</td>
-                </tr>
+                {% for projeto in projetos %}
+                    <tr>
+                        <td>{{ projeto.nome }}</td>
+                        <td>{{ projeto.descricao }}</td>
+                        
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
     
