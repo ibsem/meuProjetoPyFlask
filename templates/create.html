@@ -1,4 +1,31 @@
 <!DOCTYPE html>
 <html>
-    <p>Página para criar novo Projeto</p>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Gpmi - Gestão de Portifólio de Projetos</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="page-header">
+                <h1>{{ titulo }}</h1>
+            </div>
+            <!------------Aula de 20/09---------->
+            <form action="{{ url_for('create') }}" method="post">
+                <fieldset>
+                <div >
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" name="nome">
+                </div>
+                <div >
+                    <label for="categoria">Categoria</label>
+                    <input type="text" id="descricao" name="descricao" >
+                </div>
+                <button type="submit" >Salvar</button>
+                <a href="lista.html">Voltar</a>
+                </fieldset>
+            </form>
+            <!------------Aula de 20/09---------->
+        </div>
+    </body>
 </html>

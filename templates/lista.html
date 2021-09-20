@@ -7,11 +7,12 @@
   </head>
   <body>
     <div class="container">
-        <div class="page-header">
+        <div>
             <h1>{{ titulo }}</h1>
         </div>
-        <table class="table table-striped table-responsive table-bordered">
-            <thead class="thead-default">
+        <a href="{{ url_for('new') }}">Novo Projeto</a>
+        <table >
+            <thead >
                 <tr>
                     <th>Nome</th>
                     <th>Descricao</th>
@@ -21,8 +22,7 @@
                 {% for projeto in projetos %}
                     <tr>
                         <td>{{ projeto.nome }}</td>
-                        <td>{{ projeto.descricao }}</td>
-                        
+                        <td>{{ projeto.descricao }}</td>   
                     </tr>
                 {% endfor %}
             </tbody>
