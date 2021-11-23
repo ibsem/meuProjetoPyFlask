@@ -1,4 +1,32 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gpmi - Gestão de Portifólio de Projetos</title>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <h1>{{ titulo }}</h1>
+        </div>
     <p>Página para atualizar os dados de um Projeto</p>
+    <form action="{{ url_for('update') }}" method="post">
+        <fieldset>
+          <input type="hidden" name="id" value="{{ projeto.id }}">
+          <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" class="form-control"
+            value="{{ projeto.nome }}">
+          </div>
+          <div class="form-group">
+            <label for="descricao">Descricao</label>
+            <input type="text" id="descricao" name="descricao" class="form-control"
+            value="{{ projeto.descricao }}">
+          </div>
+          <button type="submit" class="btn btn-primary btn-salvar">Salvar</button>
+        </fieldset>
+    </form>
+    </div>
+</body>
 </html>

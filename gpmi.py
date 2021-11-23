@@ -1,6 +1,7 @@
 # ---------- Aula 19/09
 from flask import Flask, render_template, request, redirect, url_for
 from flask_mysqldb import MySQL
+from models import Projeto, Usuario
 
 app = Flask(__name__)
 
@@ -14,8 +15,9 @@ app.config['MYSQL_PORT'] = 3306
 db = MySQL(app)
 
 # Definição dos Comandos SQL para o Banco de Dados        
-SQL_LISTA_JOGOS = 'SELECT id, nome, descricao from projeto'
-SQL_CREATE_JOGO = 'INSERT into projeto (nome, descricao) values (%s, %s)'
+SQL_LISTA_PROJETOS = 'SELECT id, nome, descricao from projeto'
+SQL_CREATE_PROJETO = 'INSERT into projeto (nome, descricao) values (%s, %s)'
+SQL_ATUALIZA_PROJETO = 'UPDATE projeto SET nome=%s, descricao=%s where id = %s'
 
 #Definicição das Classes que vai trabalhar
 class Projeto:
@@ -34,7 +36,7 @@ def traduz_projetos(projetos):
 @app.route('/')
 def index():
     cursor = db.connection.cursor()
-    cursor.execute(SQL_LISTA_JOGOS)
+    cursor.execute(SQL_LISTA_PROJETOS)
     listaProjetos = traduz_projetos(cursor.fetchall())
     tituloTabela =  "Lista de Projetos"
     return render_template('lista.html', titulo = tituloTabela, projetos=listaProjetos)
@@ -51,14 +53,25 @@ def create():
     descricao = request. form['descricao']
     projeto = Projeto(nome, descricao)
     cursor = db.connection.cursor()
-    cursor.execute(SQL_CREATE_JOGO, (projeto.nome, projeto.descricao))
+    cursor.execute(SQL_CREATE_PROJETO, (projeto.nome, projeto.descricao))
     db.connection.commit()
     return redirect(url_for('index'))
     
 #------ Aula 20/09 ----------------
 
-@app.route('/update')  
+@app.route('/update', methods=['POST',])  
 def update():
+    nome = request. form['nome']
+    categoria = request. form['categoria']
+    console = request. form['console']
+    projeto = Projeto(nome, descricao, request.form['id'])
+    cursor = db.connection.cursor()
+    if (projeto.id):
+            cursor.execute(SQL_ATUALIZA_PROJETO, (projeto.nome, projeto.descricao, projeto.id))
+    else:
+            cursor.execute(SQL_CREATE_PROJETO, (projeto.nome, projeto.descricao))
+            projeto.id = cursor.lastrowid
+    db.connection.commit()
     return render_template('update.html')
 
 @app.route('/delete')  
